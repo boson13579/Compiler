@@ -24,8 +24,7 @@ void ERROR() {
 vector<pss> Scanner(string a) {
     vector<pss> ret;
     for (int i = 0; i < a.size(); i++) {
-        
-        if (a[i] == '\n' or a[i] == ' ')
+                if (a[i] == '\n' or a[i] == ' ')
             continue;
 
         else if (a[i] == '(')
@@ -77,22 +76,14 @@ pbi PRIMARY_TAIL(vector<pss> &v, int idx, int edx) {
     if (idx > edx) return pbi(true, edx);
 
     if (v[idx].ff == "DOT") {
-        if (idx + 1 > edx) {
-            return pbi(false, edx);
-        }
-
+        if (idx + 1 > edx) return pbi(false, edx);
         if (v[idx + 1].ff == "ID")
             return PRIMARY_TAIL(v, idx + 2, edx);
-
-        else {
-            return pbi(false, edx);
-        }
+        else return pbi(false, edx);
     }
     if (v[idx].ff == "LBR") {
-        debug("LBR", idx, edx);
         int tmpi = idx, count = 1;
         while (count) {
-            debug(tmpi, count, v[tmpi].ff);
             tmpi++;
             if (tmpi > edx) return pbi(false, edx);
             if (v[tmpi].ff == "LBR") count++;
@@ -102,7 +93,6 @@ pbi PRIMARY_TAIL(vector<pss> &v, int idx, int edx) {
         if (!tmp.ff) return pbi(false, edx);
         return PRIMARY_TAIL(v, tmpi + 1, edx);
     }
-    // assert(false);
 
     /*Need check*/
     return pbi(true, v.size());
@@ -145,7 +135,7 @@ int main() {
     vector<pss> ans = Scanner(input);
     for (int i = 0; i < ans.size(); i++)
         debug(i, ans[i].ff, ans[i].ss);
-    if (PRO(ans, 0, ans.size() - 1) or 1)
+    if (PRO(ans, 0, ans.size() - 1))
         for (int i = 0; i < ans.size(); i++)
             cout << ans[i].ff << " " << ans[i].ss << '\n';
     else
