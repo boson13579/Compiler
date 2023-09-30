@@ -24,7 +24,7 @@ void ERROR() {
 vector<pss> Scanner(string a) {
     vector<pss> ret;
     for (int i = 0; i < a.size(); i++) {
-                if (a[i] == '\n' or a[i] == ' ')
+        if (a[i] == '\n' or a[i] == ' ')
             continue;
 
         else if (a[i] == '(')
@@ -42,7 +42,8 @@ vector<pss> Scanner(string a) {
             while (a[i] != '"' and i < a.size());
             if (a[i] == a.size() or a[i] != '"') ERROR();
             ret.emplace_back("STRLIT", a.substr(tmp, i + 1 - tmp));
-        } else {
+        }
+        else {
             int fi = i;
             int tmp = int(a[i]);
             if (!(
@@ -79,7 +80,8 @@ pbi PRIMARY_TAIL(vector<pss> &v, int idx, int edx) {
         if (idx + 1 > edx) return pbi(false, edx);
         if (v[idx + 1].ff == "ID")
             return PRIMARY_TAIL(v, idx + 2, edx);
-        else return pbi(false, edx);
+        else
+            return pbi(false, edx);
     }
     if (v[idx].ff == "LBR") {
         int tmpi = idx, count = 1;
@@ -94,7 +96,7 @@ pbi PRIMARY_TAIL(vector<pss> &v, int idx, int edx) {
         return PRIMARY_TAIL(v, tmpi + 1, edx);
     }
 
-    /*Need check*/
+    // since primary_tail could be empty
     return pbi(true, v.size());
 }
 
