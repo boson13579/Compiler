@@ -33,7 +33,6 @@ int main() {
 
     Scanner(input);
     if (Proc() and idx == Token.size())
-        //think why should add idx == Token.size()
         for (int i = 0; i < Token.size(); i++)
             cout << Token[i] << " " << Origin[i] << '\n';
     else
