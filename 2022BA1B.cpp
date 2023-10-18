@@ -47,7 +47,7 @@ bool Proc() {
 bool Stmt() {
     if (Token[idx] == "leftParen")
         return Class();
-    else if (Token[idx] == "funcName")
+    else if (Token[idx] == "leftParen")
         return Func();
     else
         return false;
