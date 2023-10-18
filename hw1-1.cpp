@@ -40,7 +40,7 @@ vector<pss> Scanner(string a) {
             int tmp = i;
             do i++;
             while (a[i] != '"' and i < a.size());
-            if (a[i] == a.size() or a[i] != '"') ERROR();
+            if (i == a.size() or a[i] != '"') ERROR();
             ret.emplace_back("STRLIT", a.substr(tmp, i + 1 - tmp));
         } else {
             int fi = i;
