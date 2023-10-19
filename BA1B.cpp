@@ -21,10 +21,7 @@ vector<int> day;
 
 void Scanner(string s) {
     for (int i = 0; i < s.size(); i++) {
-
-        // for (int q = 0; q < Token.size(); q++)
-        //     debug("debug", Token[q], Origin[q]);
-        
+ 
         // tmp block
         bool tmpid = i + 9 < s.size();
         if (tmpid) {
@@ -70,6 +67,7 @@ void Scanner(string s) {
             Token.push_back("DOT"), Origin.push_back(s.substr(i, 1));
         else if (s[i] == '/')
             Token.push_back("SLASH"), Origin.push_back(s.substr(i, 1));
+
         else if (i + 2 < s.size() and month.find(s.substr(i, 3)) != month.end())
             Token.push_back("MONTH"), Origin.push_back(s.substr(i, 3)), i += 2;
 
@@ -81,10 +79,11 @@ void Scanner(string s) {
 
         else if (tmpyear and (s[i] == '1' or s[i] == '2'))
             Token.push_back("YEAR"), Origin.push_back(s.substr(i, 4)), i += 3;
-        else if (tmpday)
-            Token.push_back("DAY"), Origin.push_back(nowday), i += nowday.size() - 1;
         else if (tmpnat)
             Token.push_back("NATIONNUM"), Origin.push_back(s.substr(i, 3)), i += 2;
+        else if (tmpday)
+            Token.push_back("DAY"), Origin.push_back(nowday), i += nowday.size() - 1;
+
         else {
             Token = {"-1"};
             return;
