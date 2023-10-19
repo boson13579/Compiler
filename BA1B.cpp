@@ -110,8 +110,8 @@ int main() {
     getline(cin, input);
 
     Scanner(input);
-    for (int i = 0; i < Token.size(); i++)
-        debug("debug", Token[i], Origin[i]);
+    // for (int i = 0; i < Token.size(); i++)
+    //     debug("debug", Token[i], Origin[i]);
     if (Token[0] != "-1" and Proc() and idx == Token.size())
         for (int i = 0; i < Token.size(); i++)
             cout << Origin[i] << " " << Token[i] << '\n';
