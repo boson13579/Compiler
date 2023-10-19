@@ -25,7 +25,9 @@ vector<pss> Scanner(string s){
             res.emplace_back("NUM", s.substr(tmp, i-tmp));
             i--;
         }
-        else if(s[i] == '0') res.emplace_back("NUM", "0");
+        else if(s[i] == '0') 
+            if(i+1 < s.size() and s[i+1] >= '0' and s[i+1] <= '9') return {{"-1", "-1"}};
+            else res.emplace_back("NUM", "0");
         else return {{"-1", "-1"}};
     }
     return res;
