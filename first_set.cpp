@@ -8,7 +8,7 @@ set<char> first(char A) {
 
     bool emp = false;
     set<char> ret;
-
+    
     for (auto s : mp[A]) {
         bool tmpemp = true;
         for (auto c : s) {
@@ -36,21 +36,15 @@ int main() {
     while (getline(cin, s) and s != "END_OF_GRAMMAR") {
         char A = s[0];
         stringstream ss(s.substr(2));
-        while (getline(ss, s, '|')) {
-            mp[A].push_back(s);
-        }
+        while (getline(ss, s, '|')) mp[A].push_back(s);
     }
-    for (auto tmp : mp) {
-        if (ans[tmp.first].empty()) {
+    for (auto tmp : mp)
+        if (ans[tmp.first].empty())
             ans[tmp.first] = first(tmp.first);
-        }
-    }
 
     for (auto tmp : ans) {
         cout << tmp.first << " ";
-        for (auto c : tmp.second) {
-            cout << c;
-        }
+        for (auto c : tmp.second) cout << c;
         cout << "\n";
     }
 
