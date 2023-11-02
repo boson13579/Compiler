@@ -1,5 +1,4 @@
 %{  
-    #include<stdio.h>
     int tabnum = 0;
 %}
 
