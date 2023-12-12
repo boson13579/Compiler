@@ -1,13 +1,13 @@
 # Compiler Final Project- Mini-LISP Interpreter
 
-## ®œ•Œ§Ë¶°
+## ‰ΩøÁî®ÊñπÂºè
 
 ```
 python main.py
 python main.py -f "$file"
 ```
 
-## πÍß@•\Ø‡
+## ÂØ¶‰ΩúÂäüËÉΩ
 
 1. Syntax Validation
 1. Print
@@ -17,7 +17,7 @@ python main.py -f "$file"
 1. Variable Definition
 1. Function
 1. Named Function
-1. (Bonus) Recursion 
+1. (Bonus) Recursion
 1. (Bonus) Type Checking
-1. (Bonus) Nested Function 
+1. (Bonus) Nested Function
 1. (Bonus) First-class Function
