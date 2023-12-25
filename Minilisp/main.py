@@ -218,7 +218,7 @@ def print_bool(*args):
     if len(args) != 1:
         raise SyntaxError("Print-bool requires exactly 1 argument")
     if isinstance(args[0], bool):
-        print(args[0])
+        print("#t" if args[0] else "#f")
     else:
         raise TypeError(f"Print-bool can only print bool but got {args[0]}")
 

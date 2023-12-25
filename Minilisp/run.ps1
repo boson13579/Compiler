@@ -1,4 +1,4 @@
-Get-ChildItem -Path .\data | ForEach-Object {
-    Write-Host("python test.py -f data/$_")
-    python main.py -f data/$_
+Get-ChildItem -Path .\pdata | ForEach-Object {
+    Write-Host("python test.py -f pdata/$_")
+    python main.py -f pdata/$_
 }
