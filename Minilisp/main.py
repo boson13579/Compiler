@@ -1,5 +1,6 @@
 import sys
 sys.tracebacklimit = 0
+import re
 
 class MiniLisp:
     def __init__(self):
@@ -23,8 +24,12 @@ class MiniLisp:
         text = f'({"".join(lines)})'
         tokens = text.replace("(", " ( ").replace(")", " ) ").split()
         forest = self.dfs(tokens)
+        if len(tokens) != 0:
+            raise SyntaxError("unexpected Syntax")
         env = Env()
         for tree in forest:
+            if len(tree) == 1:
+                raise SyntaxError("undefined Operation")
             cal(tree, env)
 
     def dfs(self, tokens):
@@ -45,7 +50,6 @@ class MiniLisp:
 
 
 def cal(exp, env):
-    # print("exp: ", exp)
     if isinstance(exp, str):
         return env.locate(exp)[exp]
     if isinstance(exp, int):
@@ -54,6 +58,9 @@ def cal(exp, env):
     op, *args = exp
 
     if op == "define":
+        reg = re.compile(r"^([a-z]|[0-9]|-)*$")
+        if not reg.match(args[0]):
+            raise SyntaxError("Invalid variable name")
         env[args[0]] = cal(args[1], env)
         return
 
@@ -96,8 +103,8 @@ class Env(dict):
             "and": andOperator,
             "or": orOperator,
             "not": notOperator,
-            "print-num": print,
-            "print-bool": lambda x: print("#t" if x else "#f"),
+            "print-num": print_num,
+            "print-bool": print_bool,
         }
         self.update(std_env)
         self.update(zip(params, args))
@@ -199,6 +206,21 @@ def check_bool_type(args):
         if type(i) is not bool:
             raise TypeError(f"Expect 'boolean' but got {i}")
 
+def print_num(*args):
+    if len(args) != 1:
+        raise SyntaxError("Print-num requires exactly 1 argument")
+    if isinstance(args[0], int):
+        print(args[0])
+    else:
+        raise TypeError(f"Print-num can only print number but got {args[0]}")
+
+def print_bool(*args):
+    if len(args) != 1:
+        raise SyntaxError("Print-bool requires exactly 1 argument")
+    if isinstance(args[0], bool):
+        print(args[0])
+    else:
+        raise TypeError(f"Print-bool can only print bool but got {args[0]}")
 
 class function:
     def __init__(self, params, body, env):
@@ -207,6 +229,9 @@ class function:
         self.env = env
 
     def __call__(self, *args):
+        if(len(self.params) != len(args)):
+            raise TypeError("Invalid number of arguments")
+        
         nenv = Env(self.params, args, self.env)
 
         res = None
