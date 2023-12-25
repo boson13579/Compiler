@@ -1,6 +1,8 @@
 import sys
-sys.tracebacklimit = 0
 import re
+
+sys.tracebacklimit = 0
+
 
 class MiniLisp:
     def __init__(self):
@@ -206,6 +208,7 @@ def check_bool_type(args):
         if type(i) is not bool:
             raise TypeError(f"Expect 'boolean' but got {i}")
 
+
 def print_num(*args):
     if len(args) != 1:
         raise SyntaxError("Print-num requires exactly 1 argument")
@@ -213,6 +216,7 @@ def print_num(*args):
         print(args[0])
     else:
         raise TypeError(f"Print-num can only print number but got {args[0]}")
+
 
 def print_bool(*args):
     if len(args) != 1:
@@ -222,6 +226,7 @@ def print_bool(*args):
     else:
         raise TypeError(f"Print-bool can only print bool but got {args[0]}")
 
+
 class function:
     def __init__(self, params, body, env):
         self.params = params
@@ -229,9 +234,9 @@ class function:
         self.env = env
 
     def __call__(self, *args):
-        if(len(self.params) != len(args)):
+        if len(self.params) != len(args):
             raise TypeError("Invalid number of arguments")
-        
+
         nenv = Env(self.params, args, self.env)
 
         res = None
