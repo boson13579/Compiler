@@ -31,7 +31,7 @@ class MiniLisp:
         env = Env()
         for tree in forest:
             if len(tree) == 1:
-                raise SyntaxError("undefined Operation")
+                raise SyntaxError("Opearator without operand")
             cal(tree, env)
 
     def dfs(self, tokens):
@@ -40,7 +40,7 @@ class MiniLisp:
         token = tokens.pop(0)
         if token == "(":
             L = []
-            while tokens[0] != ")":
+            while self.checkEOF(tokens) and tokens[0] != ")":
                 L.append(self.dfs(tokens))
             tokens.pop(0)
             return L
@@ -49,6 +49,11 @@ class MiniLisp:
                 return int(token)
             except:
                 return token
+
+    def checkEOF(self, tokens):
+        if len(tokens) == 0:
+            raise SyntaxError("unexpected EOF")
+        return True
 
 
 def cal(exp, env):
@@ -122,77 +127,77 @@ class Env(dict):
 
 def add(*args):
     if len(args) < 2:
-        raise TypeError("add requires at least 2 arguments")
+        raise SyntaxError("add requires at least 2 arguments")
     check_int_type(args)
     return reduce(op.add, args)
 
 
 def sub(*args):
     if len(args) != 2:
-        raise TypeError("sub requires exactly 2 arguments")
+        raise SyntaxError("sub requires exactly 2 arguments")
     check_int_type(args)
     return op.sub(*args)
 
 
 def mul(*args):
     if len(args) < 2:
-        raise TypeError("mul requires at least 2 arguments")
+        raise SyntaxError("mul requires at least 2 arguments")
     check_int_type(args)
     return reduce(op.mul, args)
 
 
 def div(*args):
     if len(args) != 2:
-        raise TypeError("div requires exactly 2 arguments")
+        raise SyntaxError("div requires exactly 2 arguments")
     check_int_type(args)
     return op.floordiv(*args)
 
 
 def mod(*args):
     if len(args) != 2:
-        raise TypeError("mod requires exactly 2 arguments")
+        raise SyntaxError("mod requires exactly 2 arguments")
     check_int_type(args)
     return op.mod(*args)
 
 
 def equal(*args):
     if len(args) < 2:
-        raise TypeError("equal requires at least 2 arguments")
+        raise SyntaxError("equal requires at least 2 arguments")
     check_int_type(args)
     return all(args[0] == arg for arg in args)
 
 
 def lessthan(*args):
     if len(args) != 2:
-        raise TypeError("lessthan requires exactly 2 arguments")
+        raise SyntaxError("lessthan requires exactly 2 arguments")
     check_int_type(args)
     return op.lt(*args)
 
 
 def greaterthan(*args):
     if len(args) != 2:
-        raise TypeError("greaterthan requires exactly 2 arguments")
+        raise SyntaxError("greaterthan requires exactly 2 arguments")
     check_int_type(args)
     return op.gt(*args)
 
 
 def andOperator(*args):
     if len(args) < 2:
-        raise TypeError("and requires at least 2 arguments")
+        raise SyntaxError("and requires at least 2 arguments")
     check_bool_type(args)
     return reduce(op.and_, args)
 
 
 def orOperator(*args):
     if len(args) < 2:
-        raise TypeError("or requires at least 2 arguments")
+        raise SyntaxError("or requires at least 2 arguments")
     check_bool_type(args)
     return reduce(op.or_, args)
 
 
 def notOperator(*args):
     if len(args) != 1:
-        raise TypeError("not requires exactly 1 argument")
+        raise SyntaxError("not requires exactly 1 argument")
     check_bool_type(args)
     return op.not_(*args)
 
@@ -235,7 +240,7 @@ class function:
 
     def __call__(self, *args):
         if len(self.params) != len(args):
-            raise TypeError("Invalid number of arguments")
+            raise SyntaxError("Invalid number of arguments")
 
         nenv = Env(self.params, args, self.env)
 
